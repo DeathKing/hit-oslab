@@ -1,6 +1,19 @@
 #!/bin/sh
 export OSLAB_PATH=$(dirname `which $0`)
 
+if [ "$1" ] && [ "$1" = "init" ] ; then
+    if [ -f $OSLAB_PATH/linux-0.11.tar.gz ]; then
+        [ -d $OSLAB_PATH/linux-0.11 ] && rm -rf $OSLAB_PATH/linux-0.11
+        mkdir $OSLAB_PATH/linux-0.11
+        tar zxf $OSLAB_PATH/linux-0.11.tar.gz -C $OSLAB_PATH/linux-0.11
+        echo "Successfully recover linux-0.11."
+        exit 0
+    else
+        echo "Error: oslab cant't find a backup file named linux-0.11.tar.gz!"
+        exit 1
+    fi
+fi
+
 if [ ! -e "$OSLAB_PATH/hdc/umounted" ]; then
 	echo umount hdc first
 	sudo umount $OSLAB_PATH/hdc
