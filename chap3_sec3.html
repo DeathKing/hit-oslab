@@ -1,0 +1,758 @@
+<!DOCTYPE HTML>
+<html lang="en-US" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>进程运行轨迹的跟踪与统计 | 哈尔滨工业大学《操作系统》实验指导书</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 1.1.1">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    
+    <link rel="prev" href="./chap3_sec2.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="gitbook/style.css">
+
+
+        
+    <div class="book" data-level="2.3" data-basepath="." data-revision="1413542307000">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+    	
+    	
+    	
+
+        
+
+        
+    
+        
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                        <i class="fa fa-check"></i>
+                        
+                         简介
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="1" data-path="chap1.html">
+            
+                
+                    <a href="./chap1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                         第一章 操作系统实验概述
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="chap3.html">
+            
+                
+                    <a href="./chap3.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                         第三章 实验内容
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter " data-level="2.1" data-path="chap3_sec1.html">
+            
+                
+                    <a href="./chap3_sec1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                         操作系统的引导
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2.2" data-path="chap3_sec2.html">
+            
+                
+                    <a href="./chap3_sec2.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                         系统调用
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter active" data-level="2.3" data-path="chap3_sec3.html">
+            
+                
+                    <a href="./chap3_sec3.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                         进程运行轨迹的跟踪与统计
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Published using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle share dropdown"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">Twitter</button>
+                <button type="button" data-sharing="google-plus" class="button">Google</button>
+                <button type="button" data-sharing="facebook" class="button">Facebook</button>
+                <button type="button" data-sharing="weibo" class="button">Weibo</button>
+                <button type="button" data-sharing="instapaper" class="button">Instapaper</button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >哈尔滨工业大学《操作系统》实验指导书</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-gitbook_6">
+                    
+                        <h1 id="">进程运行轨迹的跟踪与统计</h1>
+<p>难度系数：★★★☆☆</p>
+<h2 id="">实验目的</h2>
+<ul>
+<li>掌握Linux下的多进程编程技术；</li>
+<li>通过对进程运行轨迹的跟踪来形象化进程的概念；</li>
+<li>在进程运行轨迹跟踪的基础上进行相应的数据统计，从而能对进程调度算法进行实际的量化评价，
+更进一步加深对调度和调度算法的理解，获得能在实际操作系统上对调度算法进行实验数据对比的直接经验。</li>
+</ul>
+<h2 id="">实验内容</h2>
+<p>进程从创建（Linux下调用fork()）到结束的整个过程就是进程的生命期，进程在其生命期中的运行轨迹实际上就表现为进程状态的多次切换，
+如进程创建以后会成为就绪态；当该进程被调度以后会切换到运行态；
+在运行的过程中如果启动了一个文件读写操作，操作系统会将该进程切换到阻塞态（等待态）从而让出CPU；
+当文件读写完毕以后，操作系统会在将其切换成就绪态，等待进程调度算法来调度该进程执行……</p>
+<p>本次实验包括如下内容：</p>
+<ol>
+<li>基于模板“process.c”编写多进程的样本程序，实现如下功能：<ol>
+<li>所有子进程都并行运行，每个子进程的实际运行时间一般不超过30秒；</li>
+<li>父进程向标准输出打印所有子进程的id，并在所有子进程都退出后才退出；</li>
+</ol>
+</li>
+<li>在Linux 0.11上实现进程运行轨迹的跟踪。基本任务是在内核中维护一个日志文件/var/process.log，把从操作系统启动到系统关机过程中所有进程的运行轨迹都记录在这一log文件中。</li>
+<li>在修改过的0.11上运行样本程序，通过分析log文件，统计该程序建立的所有进程的等待时间、完成时间（周转时间）和运行时间，然后计算平均等待时间，平均完成时间和吞吐量。可以自己编写统计程序，也可以使用python脚本程序—— stat_log.py ——进行统计。</li>
+<li>修改0.11进程调度的时间片，然后再运行同样的样本程序，统计同样的时间数据，和原有的情况对比，体会不同时间片带来的差异。</li>
+</ol>
+<p>/var/process.log文件的格式必须为：</p>
+<pre><code>pid    X    time
+</code></pre><p>其中：</p>
+<ul>
+<li>pid是进程的ID；</li>
+<li>X可以是N,J,R,W和E中的任意一个，分别表示进程新建(N)、进入就绪态(J)、进入运行态(R)、进入阻塞态(W)和退出(E)；</li>
+<li>time表示X发生的时间。这个时间不是物理时间，而是系统的滴答时间(tick)；</li>
+<li>三个字段之间用制表符分隔。</li>
+</ul>
+<p>例如：</p>
+<pre><code>12    N    1056
+12    J    1057
+4    W    1057
+12    R    1057
+13    N    1058
+13    J    1059
+14    N    1059
+14    J    1060
+15    N    1060
+15    J    1061
+12    W    1061
+15    R    1061
+15    J    1076
+14    R    1076
+14    E    1076
+……
+</code></pre><h2 id="">实验报告</h2>
+<p>完成实验后，在实验报告中回答如下问题：</p>
+<ul>
+<li>结合自己的体会，谈谈从程序设计者的角度看，单进程编程和多进程编程最大的区别是什么？</li>
+<li>你是如何修改时间片的？仅针对样本程序建立的进程，在修改时间片前后，log文件的统计结果（不包括Graphic）都是什么样？结合你的修改分析一下为什么会这样变化，或者为什么没变化？</li>
+</ul>
+<h2 id="">评分标准</h2>
+<ul>
+<li>process.c，50%</li>
+<li>日志文件建立成功，5%</li>
+<li>能向日志文件输出信息，5%</li>
+<li>5种状态都能输出，10%（每种2%）</li>
+<li>调度算法修改，10%</li>
+<li>实验报告，20%</li>
+</ul>
+<h2 id="">实验提示</h2>
+<p>process.c的编写涉及到fork()和wait()系统调用，请自行查阅相关文献。0.11内核修改涉及到init/main.c、kernel/fork.c和kernel/sched.c，开始实验前如果能详细阅读《注释》一书的相关部分，会大有裨益。</p>
+<h3 id="">编写样本程序</h3>
+<p>所谓样本程序，就是一个生成各种进程的程序。我们的对0.11的修改把系统对它们的调度情况都记录到log文件中。在修改调度算法或调度参数后再运行完全一样的样本程序，可以检验调度算法的优劣。理论上，此程序可以在任何Unix/Linux上运行，所以建议在Ubuntu上调试通过后，再拷贝到0.11下运行。</p>
+<p>process.c是样本程序的模板。它主要实现了一个函数：</p>
+<pre><code class="lang-c"><span class="hljs-comment">/*
+ * 此函数按照参数占用CPU和I/O时间
+ * last: 函数实际占用CPU和I/O的总时间，不含在就绪队列中的时间，&gt;=0是必须的
+ * cpu_time: 一次连续占用CPU的时间，&gt;=0是必须的
+ * io_time: 一次I/O消耗的时间，&gt;=0是必须的
+ * 如果last &gt; cpu_time + io_time，则往复多次占用CPU和I/O，直到总运行时间超过last为止
+ * 所有时间的单位为秒
+ */</span>
+cpuio_bound(<span class="hljs-keyword">int</span> last, <span class="hljs-keyword">int</span> cpu_time, <span class="hljs-keyword">int</span> io_time);
+</code></pre>
+<p>比如一个进程如果要占用10秒的CPU时间，它可以调用：</p>
+<pre><code class="lang-c">cpuio_bound(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);  <span class="hljs-comment">// 只要cpu_time&gt;0，io_time=0，效果相同</span>
+</code></pre>
+<p>以I/O为主要任务：</p>
+<pre><code class="lang-c">cpuio_bound(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);  <span class="hljs-comment">// 只要cpu_time=0，io_time&gt;0，效果相同</span>
+</code></pre>
+<p>CPU和I/O各1秒钟轮回：</p>
+<pre><code class="lang-c">cpuio_bound(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+</code></pre>
+<p>较多的I/O，较少的CPU：</p>
+<pre><code class="lang-c">cpuio_bound(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>);  <span class="hljs-comment">// I/O时间是CPU时间的9倍</span>
+</code></pre>
+<p>修改此模板，用fork()建立若干个同时运行的子进程，父进程等待所有子进程退出后才退出，每个子进程按照你的意愿做不同或相同的cpuio_bound()，从而完成一个个性化的样本程序。它可以用来检验有关log文件的修改是否正确，同时还是数据统计工作的基础。</p>
+<p>wait()系统调用可以让父进程等待子进程的退出。</p>
+<p><strong>小技巧：</strong></p>
+<ol>
+<li>在Ubuntu下，top命令可以监视即时的进程状态。在top中，按u，再输入你的用户名，可以限定只显示以你的身份运行的进程，更方便观察。按h可得到帮助。</li>
+<li>在Ubuntu下，ps命令可以显示当时各个进程的状态。“ps aux”会显示所有进程；“ps aux | grep xxxx”将只显示名为xxxx的进程。更详细的用法请问man。</li>
+<li>在Linux 0.11下，按F1可以即时显示当前所有进程的状态。</li>
+</ol>
+<h3 id="log">log文件</h3>
+<p>操作系统启动后先要打开/var/process.log，然后在每个进程发生状态切换的时候向log文件内写入一条记录，其过程和用户态的应用程序没什么两样。然而，因为内核状态的存在，使过程中的很多细节变得完全不一样。</p>
+<h3 id="log">打开log文件</h3>
+<p>为了能尽早开始记录，应当在内核启动时就打开log文件。内核的入口是init/main.c中的main()（Windows环境下是start()），其中一段代码是：</p>
+<pre><code class="lang-c">……
+move_to_user_mode();
+<span class="hljs-keyword">if</span> (!fork()) {        <span class="hljs-comment">/* we count on this going ok */</span>
+    init();
+}
+……
+</code></pre>
+<p>这段代码在进程0中运行，先切换到用户模式，然后全系统第一次调用fork()建立进程1。进程1调用init()。在init()中：</p>
+<pre><code class="lang-c">……
+setup((<span class="hljs-keyword">void</span> *) &amp;drive_info);        <span class="hljs-comment">//加载文件系统</span>
+(<span class="hljs-keyword">void</span>) open(<span class="hljs-string">"/dev/tty0"</span>,O_RDWR,<span class="hljs-number">0</span>);    <span class="hljs-comment">//打开/dev/tty0，建立文件描述符0和/dev/tty0的关联</span>
+(<span class="hljs-keyword">void</span>) dup(<span class="hljs-number">0</span>);                <span class="hljs-comment">//让文件描述符1也和/dev/tty0关联</span>
+(<span class="hljs-keyword">void</span>) dup(<span class="hljs-number">0</span>);                <span class="hljs-comment">//让文件描述符2也和/dev/tty0关联</span>
+……
+</code></pre>
+<p>这段代码建立了文件描述符0、1和2，它们分别就是stdin、stdout和stderr。这三者的值是系统标准（Windows也是如此），不可改变。可以把log文件的描述符关联到3。文件系统初始化，描述符0、1和2关联之后，才能打开log文件，开始记录进程的运行轨迹。为了能尽早访问log文件，我们要让上述工作在进程0中就完成。所以把这一段代码从init()移动到main()中，放在move_to_user_mode()之后（不能再靠前了），同时加上打开log文件的代码。修改后的main()如下：</p>
+<pre><code class="lang-c">……
+move_to_user_mode();
+
+<span class="hljs-comment">/***************添加开始***************/</span>
+setup((<span class="hljs-keyword">void</span> *) &amp;drive_info);
+(<span class="hljs-keyword">void</span>) open(<span class="hljs-string">"/dev/tty0"</span>,O_RDWR,<span class="hljs-number">0</span>);    <span class="hljs-comment">//建立文件描述符0和/dev/tty0的关联</span>
+(<span class="hljs-keyword">void</span>) dup(<span class="hljs-number">0</span>);        <span class="hljs-comment">//文件描述符1也和/dev/tty0关联</span>
+(<span class="hljs-keyword">void</span>) dup(<span class="hljs-number">0</span>);        <span class="hljs-comment">//文件描述符2也和/dev/tty0关联</span>
+(<span class="hljs-keyword">void</span>) open(<span class="hljs-string">"/var/process.log"</span>,O_CREAT|O_TRUNC|O_WRONLY,<span class="hljs-number">0666</span>);
+<span class="hljs-comment">/***************添加结束***************/</span>
+
+<span class="hljs-keyword">if</span> (!fork()) {        <span class="hljs-comment">/* we count on this going ok */</span>
+    init();
+}
+……
+</code></pre>
+<p>打开log文件的参数的含义是建立只写文件，如果文件已存在则清空已有内容。文件的权限是所有人可读可写。</p>
+<p>这样，文件描述符0、1、2和3就在进程0中建立了。根据fork()的原理，进程1会继承这些文件描述符，所以init()中就不必再open()它们。此后所有新建的进程都是进程1的子孙，也会继承它们。但实际上，init()的后续代码和/bin/sh都会重新初始化它们。所以只有进程0和进程1的文件描述符肯定关联着log文件，这一点在接下来的写log中很重要。</p>
+<h3 id="log">写log文件</h3>
+<p>log文件将被用来记录进程的状态转移轨迹。所有的状态转移都是在内核进行的。在内核状态下，write()功能失效，其原理等同于《系统调用》实验中不能在内核状态调用printf()，只能调用printk()。编写可在内核调用的write()的难度较大，所以这里直接给出源码。它主要参考了printk()和sys_write()而写成的：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;linux/sched.h&gt;</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;sys/stat.h&gt;</span>
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">char</span> logbuf[<span class="hljs-number">1024</span>];
+<span class="hljs-keyword">int</span> fprintk(<span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *fmt, ...)
+{
+    va_list args;
+    <span class="hljs-keyword">int</span> count;
+    <span class="hljs-keyword">struct</span> file * file;
+    <span class="hljs-keyword">struct</span> m_inode * inode;
+
+    va_start(args, fmt);
+    count=<span class="hljs-built_in">vsprintf</span>(logbuf, fmt, args);
+    va_end(args);
+
+    <span class="hljs-keyword">if</span> (fd &lt; <span class="hljs-number">3</span>)    <span class="hljs-comment">/* 如果输出到stdout或stderr，直接调用sys_write即可 */</span>
+    {
+        __asm__(<span class="hljs-string">"push %%fs\n\t"</span>
+            <span class="hljs-string">"push %%ds\n\t"</span>
+            <span class="hljs-string">"pop %%fs\n\t"</span>
+            <span class="hljs-string">"pushl %0\n\t"</span>
+            <span class="hljs-string">"pushl $logbuf\n\t"</span> <span class="hljs-comment">/* 注意对于Windows环境来说，是_logbuf,下同 */</span>
+            <span class="hljs-string">"pushl %1\n\t"</span>
+            <span class="hljs-string">"call sys_write\n\t"</span> <span class="hljs-comment">/* 注意对于Windows环境来说，是_sys_write,下同 */</span>
+            <span class="hljs-string">"addl $8,%%esp\n\t"</span>
+            <span class="hljs-string">"popl %0\n\t"</span>
+            <span class="hljs-string">"pop %%fs"</span>
+            ::<span class="hljs-string">"r"</span> (count),<span class="hljs-string">"r"</span> (fd):<span class="hljs-string">"ax"</span>,<span class="hljs-string">"cx"</span>,<span class="hljs-string">"dx"</span>);
+    }
+    <span class="hljs-keyword">else</span>    <span class="hljs-comment">/* 假定&gt;=3的描述符都与文件关联。事实上，还存在很多其它情况，这里并没有考虑。*/</span>
+    {
+        <span class="hljs-keyword">if</span> (!(file=task[<span class="hljs-number">0</span>]-&gt;filp[fd]))    <span class="hljs-comment">/* 从进程0的文件描述符表中得到文件句柄 */</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        inode=file-&gt;f_inode;
+
+        __asm__(<span class="hljs-string">"push %%fs\n\t"</span>
+            <span class="hljs-string">"push %%ds\n\t"</span>
+            <span class="hljs-string">"pop %%fs\n\t"</span>
+            <span class="hljs-string">"pushl %0\n\t"</span>
+            <span class="hljs-string">"pushl $logbuf\n\t"</span>
+            <span class="hljs-string">"pushl %1\n\t"</span>
+            <span class="hljs-string">"pushl %2\n\t"</span>
+            <span class="hljs-string">"call file_write\n\t"</span>
+            <span class="hljs-string">"addl $12,%%esp\n\t"</span>
+            <span class="hljs-string">"popl %0\n\t"</span>
+            <span class="hljs-string">"pop %%fs"</span>
+            ::<span class="hljs-string">"r"</span> (count),<span class="hljs-string">"r"</span> (file),<span class="hljs-string">"r"</span> (inode):<span class="hljs-string">"ax"</span>,<span class="hljs-string">"cx"</span>,<span class="hljs-string">"dx"</span>);
+    }
+    <span class="hljs-keyword">return</span> count;
+}
+</code></pre>
+<p>因为和printk的功能近似，建议将此函数放入到<code>kernel/printk.c</code>中。<code>fprintk()</code>的使用方式类同与C标准库函数<code>fprintf()</code>，唯一的区别是第一个参数是文件描述符，而不是文件指针。例如：</p>
+<pre><code class="lang-c">fprintk(<span class="hljs-number">1</span>, <span class="hljs-string">"The ID of running process is %ld"</span>, current-&gt;pid); <span class="hljs-comment">//向stdout打印正在运行的进程的ID</span>
+fprintk(<span class="hljs-number">3</span>, <span class="hljs-string">"%ld\t%c\t%ld\n"</span>, current-&gt;pid, <span class="hljs-string">'R'</span>, jiffies); <span class="hljs-comment">//向log文件输出</span>
+</code></pre>
+<h3 id="">跟踪进程运行轨迹</h3>
+<h4 id="jiffies">jiffies，滴答</h4>
+<p>jiffies在kernel/sched.c文件中定义为一个全局变量：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">long</span> <span class="hljs-keyword">volatile</span> jiffies=<span class="hljs-number">0</span>;
+</code></pre>
+<p>它记录了从开机到当前时间的时钟中断发生次数。在<code>kernel/sched.c</code>文件中的<code>sched_init()</code>函数中，时钟中断处理函数被设置为：</p>
+<pre><code class="lang-c">set_intr_gate(<span class="hljs-number">0x20</span>,&amp;timer_interrupt);
+</code></pre>
+<p>而在kernel/system_call.s文件中将timer_interrupt定义为：</p>
+<pre><code class="lang-asm">timer_interrupt:
+    ……
+    incl jiffies     #增加jiffies计数值
+    ……
+</code></pre>
+<p>这说明<strong>jiffies表示从开机时到现在发生的时钟中断次数</strong>，这个数也被称为“滴答数”。</p>
+<p>另外，在<code>kernel/sched.c</code>中的<code>sched_init()</code>中有下面的代码：</p>
+<pre><code class="lang-c">outb_p(<span class="hljs-number">0x36</span>, <span class="hljs-number">0x43</span>); <span class="hljs-comment">//设置8253模式</span>
+outb_p(LATCH&amp;<span class="hljs-number">0xff</span>, <span class="hljs-number">0x40</span>);
+outb_p(LATCH&gt;&gt;<span class="hljs-number">8</span>, <span class="hljs-number">0x40</span>);
+</code></pre>
+<p>这三条语句用来设置每次时钟中断的间隔，即为<code>LATCH</code>，而<code>LATCH</code>是定义在文件<code>kernel/sched.c</code>中的一个宏：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> LATCH  (1193180/HZ)</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> HZ 100  <span class="hljs-comment">//在include/linux/sched.h中</span></span>
+</code></pre>
+<p>再加上PC机8253定时芯片的输入时钟频率为1.193180MHz，即1193180/每秒，LATCH=1193180/100，时钟每跳11931.8下产生一次时钟中断，即每1/100秒（10ms）产生一次时钟中断，所以<strong>jiffies实际上记录了从开机以来共经过了多少个10ms</strong>。</p>
+<h4 id="">寻找状态切换点</h4>
+<p>必须找到所有发生进程状态切换的代码点，并在这些点添加适当的代码，来输出进程状态变化的情况到log文件中。此处要面对的情况比较复杂，需要对kernel下的fork.c、sched.c有通盘的了解，而exit.c也会涉及到。我们给出两个例子描述这个工作该如何做，其他情况实验者可仿照完成。</p>
+<p>第一个例子是看看如何记录一个进程生命期的开始，当然这个事件就是进程的创建函数fork()，由《系统调用》实验可知，fork()功能在内核中实现为sys_fork()，该“函数”在文件kernel/system_call.s中实现为：</p>
+<pre><code class="lang-asm">sys_fork:
+    call find_empty_process
+    ……
+    push %gs   //传递一些参数
+    pushl %esi
+    pushl %edi
+    pushl %ebp
+    pushl %eax
+    call copy_process  //调用copy_process实现进程创建
+    addl $20,%esp
+</code></pre>
+<p>所以真正实现进程创建的函数是<code>copy_process()</code>，它在<code>kernel/fork.c</code>中定义为：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> copy_process(<span class="hljs-keyword">int</span> nr,……)
+{
+    <span class="hljs-keyword">struct</span> task_struct *p;
+    ……
+    p = (<span class="hljs-keyword">struct</span> task_struct *) get_free_page();  <span class="hljs-comment">//获得一个task_struct结构体空间</span>
+    ……
+    p-&gt;pid = last_pid;
+    ……
+    p-&gt;start_time = jiffies;    <span class="hljs-comment">//设置start_time为jiffies</span>
+       ……
+    p-&gt;state = TASK_RUNNING;    <span class="hljs-comment">//设置进程状态为就绪。所有就绪进程的状态都是</span>
+                    <span class="hljs-comment">//TASK_RUNNING(0），被全局变量current指向的</span>
+                    <span class="hljs-comment">//是正在运行的进程。</span>
+    <span class="hljs-keyword">return</span> last_pid;
+}
+</code></pre>
+<p>因此要完成进程运行轨迹的记录就要在<code>copy_process()</code>中添加输出语句。这里要输出两种状态，分别是“N（新建）”和“J（就绪）”。</p>
+<p>第二个例子是记录进入睡眠态的时间。sleep_on()和interruptible_sleep_on()让当前进程进入睡眠状态，这两个函数在<code>kernel/sched.c</code>文件中定义如下：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">void</span> sleep_on(<span class="hljs-keyword">struct</span> task_struct **p)
+{
+    <span class="hljs-keyword">struct</span> task_struct *tmp;
+    ……
+    tmp = *p;
+    *p = current;  <span class="hljs-comment">//仔细阅读，实际上是将current插入“等待队列”头部，tmp是原来的头部</span>
+    current-&gt;state = TASK_UNINTERRUPTIBLE; <span class="hljs-comment">//切换到睡眠态</span>
+    schedule();  <span class="hljs-comment">//让出CPU</span>
+    <span class="hljs-keyword">if</span> (tmp)
+        tmp-&gt;state=<span class="hljs-number">0</span>;    <span class="hljs-comment">//唤醒队列中的上一个（tmp）睡眠进程。0换作TASK_RUNNING更好</span>
+                <span class="hljs-comment">//在记录进程被唤醒时一定要考虑到这种情况，实验者一定要注意!!!</span>
+}
+<span class="hljs-comment">/* TASK_UNINTERRUPTIBLE和TASK_INTERRUPTIBLE的区别在于不可中断的睡眠
+ * 只能由wake_up()显式唤醒，再由上面的 schedule()语句后的
+ *
+ *   if (tmp) tmp-&gt;state=0;
+ *
+ * 依次唤醒，所以不可中断的睡眠进程一定是按严格从“队列”（一个依靠
+ * 放在进程内核栈中的指针变量tmp维护的队列）的首部进行唤醒。而对于可
+ * 中断的进程，除了用wake_up唤醒以外，也可以用信号（给进程发送一个信
+ * 号，实际上就是将进程PCB中维护的一个向量的某一位置位，进程需要在合
+ * 适的时候处理这一位。感兴趣的实验者可以阅读有关代码）来唤醒，如在
+ * schedule()中：
+ *
+ *  for(p = &amp;LAST_TASK ; p &gt; &amp;FIRST_TASK ; --p)
+ *      if (((*p)-&gt;signal &amp; ~(_BLOCKABLE &amp; (*p)-&gt;blocked)) &amp;&amp;
+ *         (*p)-&gt;state==TASK_INTERRUPTIBLE)
+ *         (*p)-&gt;state=TASK_RUNNING;//唤醒
+ *
+ * 就是当进程是可中断睡眠时，如果遇到一些信号就将其唤醒。这样的唤醒会
+ * 出现一个问题，那就是可能会唤醒等待队列中间的某个进程，此时这个链就
+ * 需要进行适当调整。interruptible_sleep_on和sleep_on函数的主要区别就
+ * 在这里。
+ */</span>
+<span class="hljs-keyword">void</span> interruptible_sleep_on(<span class="hljs-keyword">struct</span> task_struct **p)
+{
+    <span class="hljs-keyword">struct</span> task_struct *tmp;
+       …
+    tmp=*p;
+    *p=current;
+repeat:    current-&gt;state = TASK_INTERRUPTIBLE;
+    schedule();
+    <span class="hljs-keyword">if</span> (*p &amp;&amp; *p != current) { <span class="hljs-comment">//如果队列头进程和刚唤醒的进程current不是一个，说明从队列中间唤醒了一个进程，需要处理</span>
+        (**p).state=<span class="hljs-number">0</span>;   <span class="hljs-comment">//将队列头唤醒，并通过goto repeat让自己再去睡眠</span>
+        <span class="hljs-keyword">goto</span> repeat;
+    }
+    *p=NULL;
+    <span class="hljs-keyword">if</span> (tmp)
+        tmp-&gt;state=<span class="hljs-number">0</span>;  <span class="hljs-comment">//作用和sleep_on函数中的一样</span>
+}
+</code></pre>
+<p>相信实验者已经找到合适的地方插入记录进程从运行到睡眠的语句了。</p>
+<p>总的来说，Linux 0.11支持四种进程状态的转移：就绪到运行、运行到就绪、运行到睡眠和睡眠到就绪，此外还有新建和退出两种情况。其中就绪与运行间的状态转移是通过schedule()（它亦是调度算法所在）完成的；运行到睡眠依靠的是 <code>sleep_on()</code> 和 <code>interruptible_sleep_on()</code> ，还有进程主动睡觉的系统调用 <code>sys_pause()</code> 和 <code>sys_waitpid()</code> ；睡眠到就绪的转移依靠的是<code>wake_up()</code>。所以只要在这些函数的适当位置插入适当的处理语句就能完成进程运行轨迹的全面跟踪了。</p>
+<p><strong>为了让生成的log文件更精准，以下几点请注意：</strong></p>
+<ul>
+<li><strong>进程退出的最后一步是通知父进程自己的退出，目的是唤醒正在等待此事件的父进程。从时序上来说，应该是子进程先退出，父进程才醒来。</strong></li>
+<li><strong>schedule()找到的next进程是接下来要运行的进程（注意，一定要分析清楚next是什么）。如果next恰好是当前正处于运行态的进程，swith_to(next)也会被调用。这种情况下相当于当前进程的状态没变。</strong></li>
+<li><strong>系统无事可做的时候，进程0会不停地调用sys_pause()，以激活调度算法。此时它的状态可以是等待态，等待有其它可运行的进程；也可以叫运行态，因为它是唯一一个在CPU上运行的进程，只不过运行的效果是等待。</strong></li>
+</ul>
+<h4 id="log">管理log文件</h4>
+<p>日志文件的管理与代码编写无关，有几个要点要注意：</p>
+<ol>
+<li>每次关闭bochs前都要执行一下“sync”命令，它会刷新cache，确保文件确实写入了磁盘。</li>
+<li>在0.11下，可以用“ls -l /var”或“ll /var”查看process.log是否建立，及它的属性和长度。</li>
+<li>一定要实践《实验环境的搭建与使用》一章中关于文件交换的部分。最终肯定要把process.log文件拷贝到主机环境下处理。</li>
+<li>在0.11下，可以用“vi /var/process.log”或“more /var/process.log”查看整个log文件。不过，还是拷贝到Ubuntu下看，会更舒服。</li>
+<li>在0.11下，可以用“tail -n NUM /var/process.log”查看log文件的最后NUM行。</li>
+</ol>
+<p>一种可能的情况下，得到的<code>process.log</code>文件的前几行是：</p>
+<pre><code>1    N    48    //进程1新建（init()）。此前是进程0建立和运行，但为什么没出现在log文件里？
+1    J    49    //新建后进入就绪队列
+0    J    49    //进程0从运行-&gt;就绪，让出CPU
+1    R    49    //进程1运行
+2    N    49    //进程1建立进程2。2会运行/etc/rc脚本，然后退出
+2    J    49
+1    W    49    //进程1开始等待（等待进程2退出）
+2    R    49    //进程2运行
+3    N    64    //进程2建立进程3。3是/bin/sh建立的运行脚本的子进程
+3    J    64
+2    E    68    //进程2不等进程3退出，就先走一步了
+1    J    68    //进程1此前在等待进程2退出，被阻塞。进程2退出后，重新进入就绪队列
+1    R    68
+4    N    69    //进程1建立进程4，即shell
+4    J    69
+1    W    69    //进程1等待shell退出（除非执行exit命令，否则shell不会退出）
+3    R    69    //进程3开始运行
+3    W    75
+4    R    75
+5    N    107    //进程5是shell建立的不知道做什么的进程
+5    J    108
+4    W    108
+5    R    108
+4    J    110
+5    E    111    //进程5很快退出
+4    R    111
+4    W    116    //shell等待用户输入命令。
+0    R    116    //因为无事可做，所以进程0重出江湖
+4    J    239    //用户输入命令了，唤醒了shell
+4    R    239
+4    W    240
+0    R    240
+……
+</code></pre><h3 id="">数据统计</h3>
+<p>为展示实验结果，需要编写一个数据统计程序，它从log文件读入原始数据，然后计算平均周转时间、平均等待时间和吞吐率。任何语言都可以编写这样的程序，实验者可自行设计。我们用python语言编写了一个——<code>stat_log.py</code>（这是python源程序，可以用任意文本编辑器打开）。</p>
+<p><code>python</code>是一种跨平台的脚本语言，号称“可执行的伪代码”，非常强大，非常好用，也非常有用，建议闲着的时候学习一下。其解释器免费且开源，Ubuntu下这样安装：</p>
+<pre><code class="lang-sh"><span class="hljs-built_in">sudo</span> apt-get install python
+</code></pre>
+<p>然后只要给stat_log.py加上执行权限（chmod +x stat_log.py）就可以直接运行它。</p>
+<p>Windows用户需要先到 <a href="http://www.python.org" target="_blank">http://www.python.org</a> 下载、安装python解释器，才能运行stat_log.py。</p>
+<p>此程序必须在命令行下加参数执行，直接运行会打印使用说明。</p>
+<pre><code>Usage:
+  ./stat_log.py /path/to/process.log [PID1] [PID2] ... [-x PID1 [PID2] ... ] [-m] [-g]
+Example:
+  # Include process 6, 7, 8 and 9 in statistics only. (Unit: tick)
+  ./stat_log.py /path/to/process.log 6 7 8 9
+  # Exclude process 0 and 1 from statistics. (Unit: tick)
+  ./stat_log.py /path/to/process.log -x 0 1
+  # Include process 6 and 7 only. (Unit: millisecond)
+  ./stat_log.py /path/to/process.log 6 7 -m
+  # Include all processes and print a COOL &quot;graphic&quot;! (Unit: tick)
+  ./stat_log.py /path/to/process.log -g
+</code></pre><p>运行“./stat_log.py process.log 0 1 2 3 4 5 -g”（只统计PID为0、1、2、3、4和5的进程）的输出示例：</p>
+<pre><code>(Unit: tick)
+Process   Turnaround   Waiting   CPU Burst   I/O Burst
+     0           75        67           8           0
+     1         2518         0           1        2517
+     2           25         4          21           0
+     3         3003         0           4        2999
+     4         5317         6          51        5260
+     5            3         0           3           0
+Average:     1823.50     12.83
+Throughout: 0.11/s
+-----===&lt; COOL GRAPHIC OF SCHEDULER &gt;===-----
+
+            [Symbol]   [Meaning]
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             number   PID or tick
+              &quot;-&quot;     New or Exit
+              &quot;#&quot;       Running
+              &quot;|&quot;        Ready
+              &quot;:&quot;       Waiting
+                    / Running with
+              &quot;+&quot; -|     Ready
+                    \and/or Waiting
+
+-----===&lt; !!!!!!!!!!!!!!!!!!!!!!!!! &gt;===-----
+
+  40 -0
+  41 #0
+  42 #
+  43 #
+  44 #
+  45 #
+  46 #
+  47 #
+  48 |0  -1
+  49 |   :1  -2
+  50 |   :   #2
+  51 |   :   #
+  52 |   :   #
+  53 |   :   #
+  54 |   :   #
+  55 |   :   #
+  56 |   :   #
+  57 |   :   #
+  58 |   :   #
+  59 |   :   #
+  60 |   :   #
+  61 |   :   #
+  62 |   :   #
+  63 |   :   #
+  64 |   :   |2  -3
+  65 |   :   |   #3
+  66 |   :   |   #
+  67 |   :   |   #
+…………
+</code></pre><p><strong>小技巧：</strong> 如果命令行程序输出过多，可以用“command arguments | more”的方式运行，结果会一屏一屏地显示。“more”在Linux和Windows下都有。Linux下还有一个“less”，和“more”类似，但功能更强，可以上下翻页、搜索。</p>
+<h3 id="">修改时间片</h3>
+<p>下面是0.11的调度函数schedule，在文件<code>kernel/sched.c</code>中定义为：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) {
+    c = -<span class="hljs-number">1</span>; next = <span class="hljs-number">0</span>; i = NR_TASKS; p = &amp;task[NR_TASKS];
+    <span class="hljs-keyword">while</span> (--i) {
+        <span class="hljs-keyword">if</span> (!*--p)    <span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">if</span> ((*p)-&gt;state == TASK_RUNNING &amp;&amp; (*p)-&gt;counter &gt; c)
+            c = (*p)-&gt;counter, next = i;
+    }                <span class="hljs-comment">//找到counter值最大的就绪态进程</span>
+    <span class="hljs-keyword">if</span> (c) <span class="hljs-keyword">break</span>;    <span class="hljs-comment">//如果有counter值大于0的就绪态进程，则退出</span>
+    <span class="hljs-keyword">for</span>(p = &amp;LAST_TASK ; p &gt; &amp;FIRST_TASK ; --p)
+          <span class="hljs-keyword">if</span> (*p) (*p)-&gt;counter = ((*p)-&gt;counter &gt;&gt; <span class="hljs-number">1</span>) + (*p)-&gt;priority;
+                        <span class="hljs-comment">//如果没有，所有进程的counter值除以2衰减后再和priority值相加，产生新的时间片</span>
+}
+switch_to(next);  <span class="hljs-comment">//切换到next进程</span>
+</code></pre>
+<p>分析代码可知，0.11的调度算法是选取counter值最大的就绪进程进行调度。其中运行态进程（即current）
+的counter数值会随着时钟中断而不断减1（时钟中断10ms一次），所以是一种比较典型的时间片轮转调度算法。
+另外，由上面的程序可以看出，当没有counter值大于0的就绪进程时，要对所有的进程做
+“(<em>p)-&gt;counter = ((</em>p)-&gt;counter &gt;&gt; 1) + (*p)-&gt;priority”。其效果是对所有的进程（包括阻塞态进程）都进行counter的衰减，
+并再累加priority值。这样，对正被阻塞的进程来说，一个进程在阻塞队列中停留的时间越长，其优先级越大，
+被分配的时间片也就会越大。所以总的来说，Linux 0.11的进程调度是一种综合考虑进程优先级并能动态反馈调整时间片的轮转调度算法。</p>
+<p>此处要求实验者对现有的调度算法进行时间片大小的修改，并进行实验验证。</p>
+<p>为完成此工作，我们需要知道两件事情：</p>
+<ol>
+<li>进程counter是如何初始化的？</li>
+<li>当进程的时间片用完时，被重新赋成何值？</li>
+</ol>
+<p>首先回答第一个问题，显然这个值是在fork()中设定的。Linux 0.11的fork()会调用copy_process()来完成从父进程信息拷贝（所以才称其为fork），看看copy_process()的实现（也在kernel/fork.c文件中），会发现其中有下面两条语句：</p>
+<pre><code class="lang-c">*p = *current;            <span class="hljs-comment">//用来复制父进程的PCB数据信息，包括priority和counter</span>
+p-&gt;counter = p-&gt;priority;    <span class="hljs-comment">//初始化counter</span>
+</code></pre>
+<p>因为父进程的counter数值已发生变化，而priority不会，所以上面的第二句代码将p-&gt;counter设置成p-&gt;priority。每个进程的priority都是继承自父亲进程的，除非它自己改变优先级。查找所有的代码，只有一个地方修改过priority，那就是nice系统调用：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> sys_nice(<span class="hljs-keyword">long</span> increment)
+{
+    <span class="hljs-keyword">if</span> (current-&gt;priority-increment&gt;<span class="hljs-number">0</span>)
+        current-&gt;priority -= increment;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>本实验假定没有人调用过nice系统调用，时间片的初值就是进程0的priority，即宏INIT_TASK中定义的：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> INIT_TASK \</span>
+    { <span class="hljs-number">0</span>,<span class="hljs-number">15</span>,<span class="hljs-number">15</span>, <span class="hljs-comment">//分别对应state;counter;和priority;</span>
+</code></pre>
+<p>接下来回答第二个问题，当就绪进程的counter为0时，不会被调度（schedule要选取counter最大的，大于0的进程），而当所有的就绪态进程的counter都变成0时，会执行下面的语句：</p>
+<pre><code class="lang-c">(*p)-&gt;counter = ((*p)-&gt;counter &gt;&gt; <span class="hljs-number">1</span>) + (*p)-&gt;priority;
+</code></pre>
+<p>显然算出的新的counter值也等于priority，即初始时间片的大小。</p>
+<p>提示就到这里。如何修改时间片，自己思考、尝试吧。</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./chap3_sec2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 系统调用"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.4-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
