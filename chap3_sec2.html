@@ -1,0 +1,568 @@
+<!DOCTYPE HTML>
+<html lang="en-US" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>系统调用 | 哈尔滨工业大学《操作系统》实验指导书</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 1.1.1">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    
+    <link rel="prev" href="./chap3_sec1.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="gitbook/style.css">
+
+
+        
+    <div class="book" data-level="2.2" data-basepath="." data-revision="1413542307000">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+    	
+    	
+    	
+
+        
+
+        
+    
+        
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                        <i class="fa fa-check"></i>
+                        
+                         简介
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="1" data-path="chap1.html">
+            
+                
+                    <a href="./chap1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                         第一章 操作系统实验概述
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="chap3.html">
+            
+                
+                    <a href="./chap3.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                         第三章 实验内容
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter " data-level="2.1" data-path="chap3_sec1.html">
+            
+                
+                    <a href="./chap3_sec1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                         操作系统的引导
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter active" data-level="2.2" data-path="chap3_sec2.html">
+            
+                
+                    <a href="./chap3_sec2.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                         系统调用
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Published using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle share dropdown"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">Twitter</button>
+                <button type="button" data-sharing="google-plus" class="button">Google</button>
+                <button type="button" data-sharing="facebook" class="button">Facebook</button>
+                <button type="button" data-sharing="weibo" class="button">Weibo</button>
+                <button type="button" data-sharing="instapaper" class="button">Instapaper</button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >哈尔滨工业大学《操作系统》实验指导书</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-gitbook_5">
+                    
+                        <h1 id="">系统调用</h1>
+<h2 id="">实验目的</h2>
+<ul>
+<li>建立对系统调用接口的深入认识</li>
+<li>掌握系统调用的基本过程</li>
+<li>能完成系统调用的全面控制</li>
+<li>为后续实验做准备</li>
+</ul>
+<h2 id="">实验内容</h2>
+<p>此次实验的基本内容是：在Linux 0.11上添加两个系统调用，并编写两个简单的应用程序测试它们。</p>
+<h3 id="iam">iam()</h3>
+<p>第一个系统调用是<code>iam()</code>，其原型为：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> iam(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * name);
+</code></pre>
+<p>完成的功能是将字符串参数<code>name</code>的内容拷贝到内核中保存下来。要求name的长度不能超过23个字符。返回值是拷贝的字符数。如果<code>name</code>的字符个数超过了23，则返回“-1”，并置<code>errno</code>为<code>EINVAL</code>。</p>
+<p>在kernal/who.c中实现此系统调用。</p>
+<h3 id="whoami">whoami()</h3>
+<p>第二个系统调用是<code>whoami()</code>，其原型为：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> whoami(<span class="hljs-keyword">char</span>* name, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> size);
+</code></pre>
+<p>它将内核中由<code>iam()</code>保存的名字拷贝到<code>name</code>指向的用户地址空间中，同时确保不会对<code>name</code>越界访存（<code>name</code>的大小由<code>size</code>说明）。返回值是拷贝的字符数。如果<code>size</code>小于需要的空间，则返回“-1”，并置<code>errno</code>为<code>EINVAL</code>。</p>
+<p>也是在kernal/who.c中实现。</p>
+<h3 id="">测试程序</h3>
+<p>运行添加过新系统调用的Linux 0.11，在其环境下编写两个测试程序iam.c和whoami.c。最终的运行结果是：</p>
+<pre><code class="lang-shell">$ ./iam lizhijun
+$ ./whoami
+lizhijun
+</code></pre>
+<h2 id="">实验报告</h2>
+<p>在实验报告中回答如下问题：</p>
+<ol>
+<li>从Linux 0.11现在的机制看，它的系统调用最多能传递几个参数？你能想出办法来扩大这个限制吗？</li>
+<li>用文字简要描述向Linux 0.11添加一个系统调用foo()的步骤。</li>
+</ol>
+<h2 id="">评分标准</h2>
+<ul>
+<li>将testlab2.c在修改过的Linux 0.11上编译运行，显示的结果即内核程序的得分（只要至少一个新增的系统调用被成功调用，并且能和用户空间交换参数，可得满分）。满分50%</li>
+<li>将脚本testlab2.sh在修改过的Linux 0.11上运行，显示的结果即应用程序的得分。满分30%</li>
+<li>实验报告，20%</li>
+</ul>
+<h2 id="">实验提示</h2>
+<p>首先，请将Linux 0.11的源代码恢复到原始状态。</p>
+<p>《注释》的5.5节详细讲述了0.11如何处理系统调用，是非常有价值的参考。</p>
+<p>操作系统实现系统调用的基本过程是：</p>
+<ol>
+<li>应用程序调用库函数（API）；</li>
+<li>API将系统调用号存入EAX，然后通过中断调用使系统进入内核态；</li>
+<li>内核中的中断处理函数根据系统调用号，调用对应的内核函数（系统调用）；</li>
+<li>系统调用完成相应功能，将返回值存入EAX，返回到中断处理函数；</li>
+<li>中断处理函数返回到API中；</li>
+<li>API将EAX返回给应用程序。</li>
+</ol>
+<h3 id="">应用程序如何调用系统调用</h3>
+<p>在通常情况下，调用系统调用和调用一个普通的自定义函数在代码上并没有什么区别，但调用后发生的事情有很大不同。调用自定义函数是通过<code>call</code>指令直接跳转到该函数的地址，继续运行。而调用系统调用，是调用系统库中为该系统调用编写的一个接口函数，叫API（Application Programming Interface）。API并不能完成系统调用的真正功能，它要做的是去调用真正的系统调用，过程是：</p>
+<ol>
+<li>把系统调用的编号存入EAX</li>
+<li>把函数参数存入其它通用寄存器</li>
+<li>触发0x80号中断（int 0x80）</li>
+</ol>
+<p>0.11的lib目录下有一些已经实现的API。Linus编写它们的原因是在内核加载完毕后，会切换到用户模式下，做一些初始化工作，然后启动shell。而用户模式下的很多工作需要依赖一些系统调用才能完成，因此在内核中实现了这些系统调用的API。我们不妨看看lib/close.c，研究一下<code>close()</code>的API：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> __LIBRARY__</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;unistd.h&gt;</span>
+_syscall1(<span class="hljs-keyword">int</span>,close,<span class="hljs-keyword">int</span>,fd)
+</code></pre>
+<p>其中<code>_syscall1</code>是一个宏，在include/unistd.h中定义。将<code>_syscall1(int,close,int,fd)</code>进行宏展开，可以得到：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> close(<span class="hljs-keyword">int</span> fd)
+{
+    <span class="hljs-keyword">long</span> __res;
+    __asm__ <span class="hljs-keyword">volatile</span> (<span class="hljs-string">"int $0x80"</span>
+        : <span class="hljs-string">"=a"</span> (__res)
+        : <span class="hljs-string">"0"</span> (__NR_close),<span class="hljs-string">"b"</span> ((<span class="hljs-keyword">long</span>)(fd)));
+    <span class="hljs-keyword">if</span> (__res &gt;= <span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">int</span>) __res;
+    errno = -__res;
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+}
+</code></pre>
+<p>这就是API的定义。它先将宏<code>__NR_close</code>存入<code>EAX</code>，将参数<code>fd</code>存入<code>EBX</code>，然后进行0x80中断调用。调用返回后，从<code>EAX</code>取出返回值，存入<code>__res</code>，再通过对<code>__res</code>的判断决定传给API的调用者什么样的返回值。其中<code>__NR_close</code>就是系统调用的编号，在include/unistd.h中定义：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> __NR_close    6</span>
+</code></pre>
+<p>所以添加系统调用时需要修改include/unistd.h文件，使其包含<code>__NR_whoami</code>和<code>__NR_iam</code>。而在应用程序中，要有：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> __LIBRARY__            /* 有它，_syscall1等才有效。详见unistd.h */</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> &lt;unistd.h&gt;            /* 有它，编译器才能获知自定义的系统调用的编号 */</span>
+_syscall1(<span class="hljs-keyword">int</span>, iam, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, name);        <span class="hljs-comment">/* iam()在用户空间的接口函数 */</span>
+_syscall2(<span class="hljs-keyword">int</span>, whoami,<span class="hljs-keyword">char</span>*,name,<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>,size);    <span class="hljs-comment">/* whoami()在用户空间的接口函数 */</span>
+</code></pre>
+<p>在0.11环境下编译C程序，包含的头文件都在/usr/include目录下。该目录下的unistd.h是标准头文件（它和0.11源码树中的unistd.h并不是同一个文件，虽然内容可能相同），没有<code>__NR_whoami</code>和<code>__NR_iam</code>两个宏，需要手工加上它们，也可以直接从修改过的0.11源码树中拷贝新的unistd.h过来。</p>
+<h3 id="int-0x80">从“int 0x80”进入内核函数</h3>
+<p><code>int 0x80</code>触发后，接下来就是内核的中断处理了。先了解一下0.11处理0x80号中断的过程。</p>
+<p>在内核初始化时，主函数（在init/main.c中，Linux实验环境下是<code>main()</code>，Windows下因编译器兼容性问题被换名为<code>start()</code>）调用了<code>sched_init()</code>初始化函数：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">void</span> main(<span class="hljs-keyword">void</span>)
+{
+    ……
+    time_init();
+    sched_init();
+    buffer_init(buffer_memory_end);
+    ……
+}
+</code></pre>
+<p><code>sched_init()</code>在kernel/sched.c中定义为：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">void</span> sched_init(<span class="hljs-keyword">void</span>)
+{
+    ……
+    set_system_gate(<span class="hljs-number">0x80</span>,&amp;system_call);
+}
+</code></pre>
+<p><code>set_system_gate</code>是个宏，在include/asm/system.h中定义为：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> set_system_gate(n,addr) \</span>
+    _set_gate(&amp;idt[n],<span class="hljs-number">15</span>,<span class="hljs-number">3</span>,addr)
+</code></pre>
+<p>_set_gate的定义是：</p>
+<pre><code class="lang-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> _set_gate(gate_addr,type,dpl,addr) \</span>
+__asm__ (<span class="hljs-string">"movw %%dx,%%ax\n\t"</span> \
+    <span class="hljs-string">"movw %0,%%dx\n\t"</span> \
+    <span class="hljs-string">"movl %%eax,%1\n\t"</span> \
+    <span class="hljs-string">"movl %%edx,%2"</span> \
+    : \
+    : <span class="hljs-string">"i"</span> ((<span class="hljs-keyword">short</span>) (<span class="hljs-number">0x8000</span>+(dpl&lt;&lt;<span class="hljs-number">13</span>)+(type&lt;&lt;<span class="hljs-number">8</span>))), \
+    <span class="hljs-string">"o"</span> (*((<span class="hljs-keyword">char</span> *) (gate_addr))), \
+    <span class="hljs-string">"o"</span> (*(<span class="hljs-number">4</span>+(<span class="hljs-keyword">char</span> *) (gate_addr))), \
+    <span class="hljs-string">"d"</span> ((<span class="hljs-keyword">char</span> *) (addr)),<span class="hljs-string">"a"</span> (<span class="hljs-number">0x00080000</span>))
+</code></pre>
+<p>虽然看起来挺麻烦，但实际上很简单，就是填写IDT（中断描述符表），将<code>system_call</code>函数地址写到0x80对应的中断描述符中，也就是在中断0x80发生后，自动调用函数<code>system_call</code>。具体细节请参考《注释》的第4章。</p>
+<p>接下来看<code>system_call</code>。该函数纯汇编打造，定义在kernel/system_call.s中：</p>
+<pre><code class="lang-asm">……
+nr_system_calls = 72        # 这是系统调用总数。如果增删了系统调用，必须做相应修改
+……
+.globl system_call
+.align 2
+system_call:
+    cmpl $nr_system_calls-1,%eax # 检查系统调用编号是否在合法范围内
+    ja bad_sys_call
+    push %ds
+    push %es
+    push %fs
+    pushl %edx
+    pushl %ecx
+    pushl %ebx        # push %ebx,%ecx,%edx，是传递给系统调用的参数
+    movl $0x10,%edx        # 让ds,es指向GDT，内核地址空间
+    mov %dx,%ds
+    mov %dx,%es
+    movl $0x17,%edx        # 让fs指向LDT，用户地址空间
+    mov %dx,%fs
+    call sys_call_table(,%eax,4)
+    pushl %eax
+    movl current,%eax
+    cmpl $0,state(%eax)
+    jne reschedule
+    cmpl $0,counter(%eax)
+    je reschedule
+</code></pre>
+<p><code>system_call</code>用<code>.globl</code>修饰为其他函数可见。Windows实验环境下会看到它有一个下划线前缀，这是不同版本编译器的特质决定的，没有实质区别。<code>call sys_call_table(,%eax,4)</code>之前是一些压栈保护，修改段选择子为内核段，<code>call sys_call_table(,%eax,4)</code>之后是看看是否需要重新调度，这些都与本实验没有直接关系，此处只关心<code>call sys_call_table(,%eax,4)</code>这一句。根据汇编寻址方法它实际上是：</p>
+<pre><code class="lang-c">call sys_call_table + <span class="hljs-number">4</span> * %eax   <span class="hljs-preprocessor"># 其中eax中放的是系统调用号，即__NR_xxxxxx</span>
+</code></pre>
+<p>显然，sys_call_table一定是一个函数指针数组的起始地址，它定义在include/linux/sys.h中：</p>
+<pre><code class="lang-c">fn_ptr sys_call_table[] = { sys_setup, sys_exit, sys_fork, sys_read,……
+</code></pre>
+<p>增加实验要求的系统调用，需要在这个函数表中增加两个函数引用——<code>sys_iam</code>和<code>sys_whoami</code>。当然该函数在<code>sys_call_table</code>数组中的位置必须和<code>__NR_xxxxxx</code>的值对应上。同时还要仿照此文件中前面各个系统调用的写法，加上：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> sys_whoami();
+<span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> sys_iam();
+</code></pre>
+<p>不然，编译会出错的。</p>
+<h3 id="sys_iamsys_whoami">实现sys_iam()和sys_whoami()</h3>
+<p>添加系统调用的最后一步，是在内核中实现函数<code>sys_iam()</code>和<code>sys_whoami()</code>。</p>
+<p>每个系统调用都有一个<code>sys_xxxxxx()</code>与之对应，它们都是我们学习和模仿的好对象。比如在fs/open.c中的<code>sys_close(int fd)</code>：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> sys_close(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> fd)
+{
+    ……
+    <span class="hljs-keyword">return</span> (<span class="hljs-number">0</span>);
+}
+</code></pre>
+<p>它没有什么特别的，都是实实在在地做<code>close()</code>该做的事情。所以只要自己创建一个文件：kernel/who.c，然后实现两个函数就万事大吉了。</p>
+<h3 id="makefile">修改Makefile</h3>
+<p>要想让我们添加的kernel/who.c可以和其它Linux代码编译链接到一起，必须要修改Makefile文件。Makefile里记录的是所有源程序文件的编译、链接规则，《注释》3.6节有简略介绍。我们之所以简单地运行make就可以编译整个代码树，是因为make完全按照Makefile里的指示工作。</p>
+<p>Makefile在代码树中有很多，分别负责不同模块的编译工作。我们要修改的是kernel/Makefile。需要修改两处。一处是：</p>
+<pre><code class="lang-makefile"><span class="hljs-constant">OBJS</span>  = sched.o system_call.o traps.o asm.o fork.o \
+        panic.o printk.o vsprintf.o sys.o exit.o \
+        signal.o mktime.o
+</code></pre>
+<p>改为：</p>
+<pre><code class="lang-makefile"><span class="hljs-constant">OBJS</span>  = sched.o system_call.o traps.o asm.o fork.o \
+        panic.o printk.o vsprintf.o sys.o exit.o \
+        signal.o mktime.o who.o
+</code></pre>
+<p>另一处：</p>
+<pre><code class="lang-makefile"><span class="hljs-comment">### Dependencies:</span>
+exit.s exit.o: exit.c ../include/errno.h ../include/signal.h \
+  ../include/sys/types.h ../include/sys/wait.h ../include/linux/sched.h \
+  ../include/linux/head.h ../include/linux/fs.h ../include/linux/mm.h \
+  ../include/linux/kernel.h ../include/linux/tty.h ../include/termios.h \
+  ../include/asm/segment.h
+</code></pre>
+<p>改为：</p>
+<pre><code class="lang-makefile"><span class="hljs-comment">### Dependencies:</span>
+who.s who.o: who.c ../include/linux/kernel.h ../include/unistd.h
+exit.s exit.o: exit.c ../include/errno.h ../include/signal.h \
+  ../include/sys/types.h ../include/sys/wait.h ../include/linux/sched.h \
+  ../include/linux/head.h ../include/linux/fs.h ../include/linux/mm.h \
+  ../include/linux/kernel.h ../include/linux/tty.h ../include/termios.h \
+  ../include/asm/segment.h
+</code></pre>
+<p>Makefile修改后，和往常一样<code>make all</code>就能自动把who.c加入到内核中了。如果编译时提示who.c有错误，就说明修改生效了。所以，有意或无意地制造一两个错误也不完全是坏事，至少能证明Makefile是对的。</p>
+<h3 id="printk">用printk()调试内核</h3>
+<p>oslab实验环境提供了基于C语言和汇编语言的两种调试手段。除此之外，适当地向屏幕输出一些程序运行状态的信息，也是一种很高效、便捷的调试方法，有时甚至是唯一的方法，被称为“printf法”。</p>
+<p>要知道到，<code>printf()</code>是一个只能在用户模式下执行的函数，而系统调用是在内核模式中运行，所以<code>printf()</code>不可用，要用<code>printk()</code>。它和<code>printf</code>的接口和功能基本相同，只是代码上有一点点不同。<code>printk()</code>需要特别处理一下<code>fs</code>寄存器，它是专用于用户模式的段寄存器。看一看<code>printk</code>的代码（在kernel/printk.c中）就知道了：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> printk(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *fmt, ...)
+{
+    ……
+    __asm__(<span class="hljs-string">"push %%fs\n\t"</span>
+            <span class="hljs-string">"push %%ds\n\t"</span>
+            <span class="hljs-string">"pop %%fs\n\t"</span>
+            <span class="hljs-string">"pushl %0\n\t"</span>
+            <span class="hljs-string">"pushl $buf\n\t"</span>
+            <span class="hljs-string">"pushl $0\n\t"</span>
+            <span class="hljs-string">"call tty_write\n\t"</span>
+            <span class="hljs-string">"addl $8,%%esp\n\t"</span>
+            <span class="hljs-string">"popl %0\n\t"</span>
+            <span class="hljs-string">"pop %%fs"</span>
+            ::<span class="hljs-string">"r"</span> (i):<span class="hljs-string">"ax"</span>,<span class="hljs-string">"cx"</span>,<span class="hljs-string">"dx"</span>);
+    ……
+}
+</code></pre>
+<p>显然，<code>printk()</code>首先<code>push %fs</code>保存这个指向用户段的寄存器，在最后<code>pop %fs</code>将其恢复，<code>printk</code>的核心仍然是调用<code>tty_write()</code>。查看<code>printf()</code>可以看到，它最终也要落实到这个函数上。</p>
+<h3 id="">编写测试程序</h3>
+<p>激动地运行一下由你亲手修改过的“Linux 0.11 pro++”！然后编写一个简单的应用程序进行测试。比如在<code>sys_iam()</code>中向终端<code>printk()</code>一些信息，让应用程序调用<code>iam()</code>，从结果可以看出系统调用是否被真的调用到了。</p>
+<p>可以直接在Linux 0.11环境下用vi编写（别忘了经常执行<code>sync</code>以确保内存缓冲区的数据写入磁盘），也可以在Ubuntu或Windows下编完后再传到Linux 0.11下。无论如何，最终都必须在Linux 0.11下编译。编译命令是：</p>
+<pre><code class="lang-shell"># gcc -o iam iam.c -Wall
+</code></pre>
+<p>gcc的“-Wall”参数是给出所有的编译警告信息，“-o”参数指定生成的执行文件名是iam，用下面命令运行它：</p>
+<pre><code class="lang-shell"># ./iam
+</code></pre>
+<p>如果如愿输出了你的信息，就说明你添加的系统调用生效了。否则，就还要继续调试，祝你好运！</p>
+<h3 id="">在用户态和核心态之间传递数据</h3>
+<p>指针参数传递的是应用程序所在地址空间的逻辑地址，在内核中如果直接访问这个地址，访问到的是内核空间中的数据，不会是用户空间的。所以这里还需要一点儿特殊工作，才能在内核中从用户空间得到数据。</p>
+<p>要实现的两个系统调用参数中都有字符串指针，非常像<code>open(char *filename, ……)</code>，所以我们看一下<code>open()</code>系统调用是如何处理的。</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> open(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * filename, <span class="hljs-keyword">int</span> flag, ...)
+{
+    ……
+    __asm__(<span class="hljs-string">"int $0x80"</span>
+            :<span class="hljs-string">"=a"</span> (res)
+            :<span class="hljs-string">"0"</span> (__NR_open),<span class="hljs-string">"b"</span> (filename),<span class="hljs-string">"c"</span> (flag),
+            <span class="hljs-string">"d"</span> (va_arg(arg,<span class="hljs-keyword">int</span>)));
+    ……
+}
+</code></pre>
+<p>可以看出，系统调用是用eax、ebx、ecx、edx寄存器来传递参数的。其中eax传递了系统调用号，而ebx、ecx、edx是用来传递函数的参数的，其中ebx对应第一个参数，ecx对应第二个参数，依此类推。如open所传递的文件名指针是由ebx传递的，也即进入内核后，通过ebx取出文件名字符串。open的ebx指向的数据在用户空间，而当前执行的是内核空间的代码，如何在用户态和核心态之间传递数据？接下来我们继续看看open的处理：</p>
+<pre><code class="lang-asm">system_call: //所有的系统调用都从system_call开始
+    ……
+    pushl %edx
+    pushl %ecx
+    pushl %ebx                # push %ebx,%ecx,%edx，这是传递给系统调用的参数
+    movl $0x10,%edx            # 让ds,es指向GDT，指向核心地址空间
+    mov %dx,%ds
+    mov %dx,%es
+    movl $0x17,%edx            # 让fs指向的是LDT，指向用户地址空间
+    mov %dx,%fs
+    call sys_call_table(,%eax,4)    # 即call sys_open
+</code></pre>
+<p>由上面的代码可以看出，获取用户地址空间（用户数据段）中的数据依靠的就是段寄存器fs，下面该转到sys_open执行了，在fs/open.c文件中：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> sys_open(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * filename,<span class="hljs-keyword">int</span> flag,<span class="hljs-keyword">int</span> mode)  <span class="hljs-comment">//filename这些参数从哪里来？</span>
+<span class="hljs-comment">/*是否记得上面的pushl %edx,    pushl %ecx,    pushl %ebx？
+  实际上一个C语言函数调用另一个C语言函数时，编译时就是将要
+  传递的参数压入栈中（第一个参数最后压，…），然后call …，
+  所以汇编程序调用C函数时，需要自己编写这些参数压栈的代码…*/</span>
+{
+    ……
+    <span class="hljs-keyword">if</span> ((i=open_namei(filename,flag,mode,&amp;inode))&lt;<span class="hljs-number">0</span>) {
+        ……
+    }
+    ……
+}
+</code></pre>
+<p>它将参数传给了<code>open_namei()</code>。再沿着<code>open_namei()</code>继续查找，文件名先后又被传给<code>dir_namei()</code>、<code>get_dir()</code>。在<code>get_dir()</code>中可以看到：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">struct</span> m_inode * get_dir(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * pathname)
+{
+    ……
+    <span class="hljs-keyword">if</span> ((c=get_fs_byte(pathname))==<span class="hljs-string">'/'</span>) {
+        ……
+    }
+    ……
+}
+</code></pre>
+<p>处理方法就很显然了：用get_fs_byte()获得一个字节的用户空间中的数据。所以，在实现iam()时，调用get_fs_byte()即可。但如何实现whoami()呢？即如何实现从核心态拷贝数据到用心态内存空间中呢？猜一猜，是否有put_fs_byte()？有！看一看include/asm/segment.h：</p>
+<pre><code class="lang-c"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> get_fs_byte(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * addr)
+{
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">register</span> <span class="hljs-keyword">char</span> _v;
+    __asm__ (<span class="hljs-string">"movb %%fs:%1,%0"</span>:<span class="hljs-string">"=r"</span> (_v):<span class="hljs-string">"m"</span> (*addr));
+    <span class="hljs-keyword">return</span> _v;
+}
+
+<span class="hljs-keyword">extern</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> put_fs_byte(<span class="hljs-keyword">char</span> val,<span class="hljs-keyword">char</span> *addr)
+{
+    __asm__ (<span class="hljs-string">"movb %0,%%fs:%1"</span>::<span class="hljs-string">"r"</span> (val),<span class="hljs-string">"m"</span> (*addr));
+}
+</code></pre>
+<p>他俩以及所有<code>put_fs_xxx()</code>和<code>get_fs_xxx()</code>都是用户空间和内核空间之间的桥梁，在后面的实验中还要经常用到。</p>
+<h3 id="">运行脚本程序</h3>
+<p>Linux的一大特色是可以编写功能强大的shell脚本，提高工作效率。本实验的部分评分工作由脚本 testlab2.sh 完成。它的功能是测试iam.c和whoami.c。</p>
+<p>首先将iam.c和whoami.c分别编译成iam和whoami，然后将 testlab2.sh 拷贝到同一目录下。用下面命令为此脚本增加执行权限：</p>
+<pre><code class="lang-shell">chmod +x testlab2.sh
+</code></pre>
+<p>然后运行之：</p>
+<pre><code>./testlab2.sh
+</code></pre><p>根据输出，可知iam.c和whoami.c的得分。</p>
+<h3 id="errno">errno</h3>
+<p><code>errno</code>是一种传统的错误代码返回机制。当一个函数调用出错时，通常会返回-1给调用者。但-1只能说明出错，不能说明错是什么。为解决此问题，全局变量<code>errno</code>登场了。错误值被存放到<code>errno</code>中，于是调用者就可以通过判断<code>errno</code>来决定如何应对错误了。各种系统对<code>errno</code>的值的含义都有标准定义。Linux下用“man errno”可以看到这些定义。</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./chap3_sec1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 操作系统的引导"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="https://cdn.mathjax.org/mathjax/2.4-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
