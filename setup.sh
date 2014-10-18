@@ -64,7 +64,7 @@ configure_for_amd64() {
     echo "\033[34mDone\033[0m"
 
     echo -n "* Copy run script to oslab......"
-    cp amd64/run $OSLAB_INSTALL_PATH
+    cp -r amd64/* $OSLAB_INSTALL_PATH
     echo "\033[34mDone\033[0m"
 }
 
