@@ -101,6 +101,11 @@ echo -n "* Extract bochs configuration file and hdc image......"
 tar zxf common/bochs-and-hdc.tar.gz -C $OSLAB_INSTALL_PATH/
 echo "\033[34mDone\033[0m"
 
+# Copy common files
+echo -n "* Copy common files......"
+cp -r common/files $OSLAB_INSTALL_PATH
+echo "\033[034mDone\033[0m"
+
 # `getconf LONG_BIT` works better than `uname -a`
 if [ `getconf LONG_BIT` = "64" ]
 then
