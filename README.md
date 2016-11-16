@@ -31,14 +31,6 @@ cd ~/hit-oslab
 ./run init
 ```
 
-## 镜像源
-
-由于hit-oslab仓库容量较大，故此项目具有多个远端仓库。其中GitLab服务器存放在哈尔滨工业大学网络中心，校内访问速度最快；GitCafe服务器访问速度次之；GitHub最慢。
-
-+ GitLab源：http://gitlab.hit.edu.cn/DeathKing/hit-oslab.git
-+ GitCafe源：https://gitcafe.com/Dysprosium/hit-oslab.git
-+ GitHub源：https://github.com/DeathKing/hit-oslab.git
-
 ## 反馈
 
 本项目可以确保bochs能够正确启动，但某些64位系统在编译linux-0.11时会提示缺少某些文件，如果遇到类似问题的同学，请发issue。
