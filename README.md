@@ -7,6 +7,9 @@ hit-oslab
 
 ![hit](https://cloud.githubusercontent.com/assets/895809/7827659/834a4424-045c-11e5-9442-43a73b8e6991.jpg)
 
+
+由于历史原因，推荐大家使用实验楼提供的实验环境。本项目只做归档使用。
+
 + [操作系统之基础 - 网易云课堂](http://mooc.study.163.com/learn/HIT-1000002004?tid=1000002003#/learn/announce)
 + [操作系统原理与实践 - 实验楼](https://www.shiyanlou.com/courses/115)
 
